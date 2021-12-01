@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class UserDao {
 				user.getUserName(),
 				user.getPassword(),
 				user.getIdentifyID(),
-				user.getRegisterDate(),
+				new Timestamp(user.getRegisterDate().getTime()), //使用Timestamp类
 				user.getSex(),
 				user.getMail(),
 				user.getAdminID()
@@ -70,7 +71,7 @@ public class UserDao {
 				addedUser.setUserName(resultSet.getString("user_name"));
 				addedUser.setPassword(resultSet.getString("password"));
 				addedUser.setIdentifyID(resultSet.getString("identify_id"));
-				addedUser.setRegisterDate(resultSet.getDate("register_date"));
+				addedUser.setRegisterDate(resultSet.getTimestamp("register_date"));//获取时间类
 				addedUser.setSex(resultSet.getString("sex"));
 				addedUser.setMail(resultSet.getString("mail"));
 				addedUser.setAdminID(resultSet.getString("admin_id"));
