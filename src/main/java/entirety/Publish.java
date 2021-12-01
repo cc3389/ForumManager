@@ -1,5 +1,9 @@
 package entirety;
-
+/**
+ * 发表帖子（主题） 实体
+ * @author cc3389
+ *
+ */
 public class Publish {
 	private String postID;
 	private String userID;

@@ -1,7 +1,11 @@
 package entirety;
 
 import java.util.Date;
-
+/**
+ * 帖子（主题）实体
+ * @author cc3389
+ *
+ */
 public class Post {
 	private String postID;
 	private String blockID;

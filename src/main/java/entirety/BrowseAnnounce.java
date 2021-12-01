@@ -1,5 +1,9 @@
 package entirety;
-
+/**
+ * 浏览公告
+ * @author cc3389
+ *
+ */
 public class BrowseAnnounce {
 	private String announcementID;
 	private String userID;

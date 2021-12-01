@@ -15,9 +15,17 @@ public class RegisterService {
 		if (users.size() == 0) {//注册成功
 			user.setUserID(UUID.randomUUID().toString());//分配ID
 			Timestamp ts = new Timestamp(user.getRegisterDate().getTime());
-			//分配权限
+			//分配权限,添加权限...
+			isSucess = false;
 		} else { //注册失败
 			
 		}
+	}
+	/**
+	 * 
+	 * @return 注册成功与否
+	 */
+	public boolean isSucess() {
+		return isSucess;
 	}
 }

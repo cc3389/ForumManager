@@ -57,7 +57,7 @@ public class UserDao {
 	/**
 	 * 
 	 * @param name 用户名
-	 * @return User数组
+	 * @return User链表
 	 */
 	public List<User> queryUserByName(String name) {
 		String sql = "select * from User where name = ?";

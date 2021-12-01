@@ -1,7 +1,11 @@
 package entirety;
 
 import java.util.Date;
-
+/**
+ * 公告实体
+ * @author cc3389
+ *
+ */
 public class Announcement {
 	private String announcement_id;
 	private String writer;

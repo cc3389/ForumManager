@@ -1,7 +1,11 @@
 package entirety;
 
 import java.util.Date;
-
+/**
+ * 评论实体
+ * @author cc3389
+ *
+ */
 public class Review {
 	private String userID;
 	private String postID;

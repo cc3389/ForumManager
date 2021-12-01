@@ -1,5 +1,9 @@
 package entirety;
-
+/**
+ * 权限实体
+ * @author cc3389
+ *
+ */
 public class Permission {
 	private String identifyID;
 	private boolean allowReview;

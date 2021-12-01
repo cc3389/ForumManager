@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entirety.User;
+import service.RegisterService;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -43,9 +44,16 @@ public class RegisterServlet extends HttpServlet {
 		user.setSex(sex);
 		Date currentDate = new Date();
 		user.setRegisterDate(currentDate);
-		
-		System.out.println(user);
-		
+		RegisterService registerService = new RegisterService(user);
+		if (registerService.isSucess()) {
+			//跳转到提示界面提示注册成功
+			response.sendRedirect("Register/Sucess.jsp");
+		} else {
+			//失败重新跳转到注册界面
+			request.setAttribute("Fail", "Fail");
+			request.getRequestDispatcher("Register/Register.jsp").forward(request, response);
+		}
+		//System.out.println(user);		
 	}
 
 	/**

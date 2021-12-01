@@ -1,5 +1,9 @@
 package entirety;
-
+/**
+ * 修改公告
+ * @author cc3389
+ *
+ */
 public class ChangeBlock {
 	private String adminID;
 	private String blockID;

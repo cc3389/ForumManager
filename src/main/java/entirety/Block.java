@@ -1,5 +1,9 @@
 package entirety;
-
+/**
+ * 板块实体
+ * @author cc3389
+ *
+ */
 public class Block {
 	private String blockID;
 	private String type;

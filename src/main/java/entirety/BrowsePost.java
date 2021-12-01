@@ -1,5 +1,9 @@
 package entirety;
-
+/**
+ * 浏览帖子（主题）
+ * @author cc3389
+ *
+ */
 public class BrowsePost {
 	private String userID;
 	private String poseID;

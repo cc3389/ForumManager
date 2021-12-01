@@ -1,7 +1,12 @@
 package entirety;
 
 import java.util.Date;
-
+/**
+ * 用户实体
+ * @author cc3389
+ * 
+ *
+ */
 public class User {
 	private String userID;
 	private String userName;

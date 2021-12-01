@@ -7,6 +7,19 @@
 <title>论坛注册</title>
 </head>
 <body>
+<%
+	String isFail = (String)request.getAttribute("Fail");	
+	if (isFail != null) {
+		if (isFail == "Fail") {
+%>
+			<script type="text/javascript">
+			alert("注册失败，请重新注册！");
+			</script>
+<%
+		}
+
+	}
+%>
 	<form method="post"action="/ForumManager/RegisterServlet">
 		昵称：<input name="uname" type="text"><br/>
 		密码：<input name="upwd"type="password"><br/>
@@ -18,6 +31,5 @@
 		非二元性别<input type="radio" name="sex" value="未知"><br/>
 		<input type = "submit"value="注册">
 	</form>
-	<a href = "../index.jsp">注册</a>
 </body>
 </html>
