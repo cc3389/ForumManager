@@ -2,9 +2,13 @@ package servlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import service.LoginService;
+import util.MD5Util;
 
 /**
  * Servlet implementation class LogInServlet
@@ -25,8 +29,27 @@ public class LogInServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());	
-		//查询用户信息 失败则提示重新登，成功则跳转到主页
+		//查询用户信息 失败则提示重新登，成功则跳转到主页		
+		String name = request.getParameter("uname");
+		String password = request.getParameter("upwd");
+		System.out.println(name+"\n"+password+"\n"+"发起登录");
+		LoginService logSer = new LoginService(name,password);
+		if (logSer.isSucess()) {
+			//将用户名与密码md5保存到cookie上
+			//权限与用户信息保存到session上
+			//重定向到主页
+			Cookie nameCookie = new Cookie("username",name);	
+			String md5 = MD5Util.md5(password);
+			Cookie passMD5 = new Cookie("password",md5);
+			response.addCookie(passMD5);
+			response.addCookie(nameCookie);
+		} else {
+			//重新登
+			request.setCharacterEncoding("utf-8");
+			request.setAttribute("Fail", "Fail");
+			request.getRequestDispatcher("Login/index.jsp").forward(request, response);
+			
+		}
 	}
 
 	/**

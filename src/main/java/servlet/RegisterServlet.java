@@ -32,11 +32,10 @@ public class RegisterServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		String name = (String)request.getAttribute("uname");
-		String password = (String)request.getAttribute("upwd");
-		String email = (String)request.getAttribute("mail");
-		String sex = (String)request.getAttribute("sex");
+		String name = request.getParameter("uname");
+		String password = request.getParameter("upwd");	
+		String email = request.getParameter("email");
+		String sex = request.getParameter("sex");
 		User user = new User();
 		user.setUserName(name);
 		user.setPassword(password);
@@ -44,6 +43,8 @@ public class RegisterServlet extends HttpServlet {
 		user.setSex(sex);
 		Date currentDate = new Date();
 		user.setRegisterDate(currentDate);
+		System.out.println("注册已发起，用户信息如下：");
+		System.out.println(user);
 		RegisterService registerService = new RegisterService(user);
 		if (registerService.isSucess()) {
 			//跳转到提示界面提示注册成功

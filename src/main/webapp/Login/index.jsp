@@ -7,6 +7,18 @@
 <title>登录</title>
 </head>
 <body>
+<%
+	String fail = (String)request.getAttribute("Fail");
+	if (fail!=null&&fail!="") {
+		if (fail == "Fail") {
+%>
+<script>
+	alert("登录失败，请重新登录");
+</script>
+<%
+		}
+	}
+%>
 	<form method="post" action="/ForumManager/LogInServlet">
 	用户名:<input type="text"name="uname"/><br/>
 	密码:<input type="password"name="upwd"/><br/>

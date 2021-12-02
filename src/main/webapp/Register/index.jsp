@@ -28,7 +28,6 @@
 		性别：
 		男<input type="radio" name="sex" value="男">
 		女<input type="radio" name="sex" value="女">
-		非二元性别<input type="radio" name="sex" value="未知"><br/>
 		<input type = "submit"value="注册">
 	</form>
 </body>
