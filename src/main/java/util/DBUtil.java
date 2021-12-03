@@ -28,7 +28,7 @@ public class DBUtil {
 	public DBUtil() {
 		uname = "sa";
 		password = "sa123";
-		String myURL = "192.168.123.123";//修改这里
+		String myURL = "192.168.43.159";//修改这里
 		targetURL = "jdbc:sqlserver://" + myURL +":1433;DatabaseName=TBGL";
 	}
 	public DBUtil(String url) {

@@ -63,8 +63,8 @@ public class RegisterServlet extends HttpServlet {
 		} else {
 			//失败重新跳转到注册界面
 			System.out.println("注册失败，重新注册");
-			request.setAttribute("Fail", "Fail");
-			request.getRequestDispatcher("Register/Register.jsp").forward(request, response);
+			request.setAttribute("registerFail", "Fail");
+			request.getRequestDispatcher("/Register/index.jsp").forward(request, response);
 		}		
 	}
 }
