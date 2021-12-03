@@ -45,11 +45,12 @@ public class ReviewDao {
 	}
 	public List<Review> queryReivewByPostID(String ID) {
 		String sql = "select * from Review";
-		ResultSet resultSet = dbu.excuteQuery(sql, null);
-		List<Review> review = new ArrayList<>();
-		Review addedReview = new Review();
+		Object[] parms = {};
+		ResultSet resultSet = dbu.excuteQuery(sql, parms);
+		List<Review> review = new ArrayList<>();		
 		try {
 			while(resultSet.next()) {
+				Review addedReview = new Review();
 				addedReview.setUserID(resultSet.getString("user_id"));
 				addedReview.setPostID(resultSet.getString("post_id"));
 				addedReview.setReviewTime(resultSet.getTimestamp("review_time"));

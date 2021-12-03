@@ -11,6 +11,10 @@ public class Block {
 	public Block() {
 		
 	}
+	@Override
+	public String toString() {
+		return "Block [blockID=" + blockID + ", type=" + type + ", superAdminID=" + superAdminID + "]";
+	}
 	public String getBlockID() {
 		return blockID;
 	}

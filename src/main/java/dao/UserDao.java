@@ -62,10 +62,10 @@ public class UserDao {
 	public User queryUserByName(String name) {
 		String sql = "select * from Users where user_name = ?";
 		Object[] parms = {name};
-		ResultSet resultSet = dbu.excuteQuery(sql, parms);
 		User addedUser = new User();
-		try {
-			if (resultSet != null && resultSet.next()) {
+		ResultSet resultSet = dbu.excuteQuery(sql, parms);		
+		try {		
+			if (resultSet != null && resultSet.next()) {			
 				addedUser.setUserID(resultSet.getString("user_id"));
 				addedUser.setUserName(resultSet.getString("user_name"));
 				addedUser.setPassword(resultSet.getString("password"));
@@ -93,7 +93,7 @@ public class UserDao {
 		ResultSet resultSet = dbu.excuteQuery(sql, parms);
 		User addedUser = new User();
 		try{
-			if (!resultSet.next()) {
+			if (resultSet.next()) {
 				addedUser.setUserID(resultSet.getString("user_id"));
 				addedUser.setUserName(resultSet.getString("user_name"));
 				addedUser.setPassword(resultSet.getString("password"));

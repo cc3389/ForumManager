@@ -48,10 +48,10 @@ public class PostDao {
 	public Post queryPostByID(String ID) {
 		String sql = "select * from post where post_id = ?";
 		Object[] parms = {ID};
-		ResultSet resultSet = dbu.excuteQuery(sql, parms);
 		Post post = new Post();
+		ResultSet resultSet = dbu.excuteQuery(sql, parms);		
 		try {
-			while(resultSet.next()) {
+			while(resultSet.next()) {				
 				post.setPostID(resultSet.getString("post_id"));
 				post.setBlockID(resultSet.getString("block_id"));
 				post.setBlockerID(resultSet.getString("blocker_id"));
@@ -64,17 +64,18 @@ public class PostDao {
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
-		return null;
+		return post;
 	}
 	public List<Post> queryPostByBlockID(String BlockID) {
 		String sql = "select * from post where block_id = ?";
 		Object[] parms = {BlockID};
-		ResultSet resultSet = dbu.excuteQuery(sql, null);
-		List<Post> post = new ArrayList<>();
-		Post addedPost = new Post();
+		ResultSet resultSet = dbu.excuteQuery(sql, parms);
+		List<Post> post = new ArrayList<>();		
 		try {
 			while(resultSet.next()) {
+				Post addedPost = new Post();
 				addedPost.setPostID(resultSet.getString("post_id"));
 				addedPost.setBlockID(resultSet.getString("block_id"));
 				addedPost.setBlockerID(resultSet.getString("blocker_id"));
@@ -88,8 +89,9 @@ public class PostDao {
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
-		return null;
+		return post;
 		
 	}
 }

@@ -6,7 +6,7 @@ package entirety;
  */
 public class BrowsePost {
 	private String userID;
-	private String poseID;
+	private String postID;
 	public String getUserID() {
 		return userID;
 	}
@@ -16,16 +16,16 @@ public class BrowsePost {
 	public void setUserID(String userID) {
 		this.userID = userID;
 	}
-	public String getPoseID() {
-		return poseID;
+	public String getPostID() {
+		return postID;
 	}
-	public void setPoseID(String poseID) {
-		this.poseID = poseID;
+	public void setPostID(String poseID) {
+		this.postID = poseID;
 	}
 	public BrowsePost(String userID, String poseID) {
 		super();
 		this.userID = userID;
-		this.poseID = poseID;
+		this.postID = poseID;
 	}
 	
 }

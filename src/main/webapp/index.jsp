@@ -52,18 +52,27 @@
 }
 %>
 欢迎您,<%=identifyName%> <%=username%>!<br/>
+<a href = "/ForumManager/LogoutServlet">登出</a>
+
 <!-- 首先得到用户名，然后得到板块名，根据板块名可以进入相应的板块区 -->
 <%
-	out.print("论坛板块如下：");
+	out.print("论坛板块如下：<br/>");
 	System.out.println("用户权限如下\n"+permission+"\n以上");
 	List<Block> blocks = (List<Block>)session.getAttribute("blocks");
 	if (blocks != null) {
 		for (int i = 0; i < blocks.size(); ++i) {		
+			System.out.println("vlaue:"+blocks.get(i).getBlockID());
 %>
-<a href="/ForumManager/QueryBlockServelt" value=<%=blocks.get(i).getBlockID()%>name= "blcokIndex"><%=blocks.get(i).getType()%></a><br/>
+<a href="Posts/index.jsp?block=<%=blocks.get(i).getBlockID()%>"><%=blocks.get(i).getType()%></a><br/>
 <% 
 		}
-	} 
+	} else {
+%>
+	<script>
+		window.location.href="/ForumManager/QueryBlockServlet";//获取板块列表
+	</script>
+<%
+	}
 %>
 </body>
 </html>

@@ -52,11 +52,12 @@ public class BrowseAnnounceDao {
 	}
 	public List<BrowseAnnounce> queryAllBrowse(){
 		String sql = "select * from Browse_Announcement";
-		ResultSet resultSet = dbu.excuteQuery(sql, null);
-		List<BrowseAnnounce> Browse = new ArrayList<>();
-		BrowseAnnounce addedBrowse = new BrowseAnnounce();
+		Object[] parms = {};
+		ResultSet resultSet = dbu.excuteQuery(sql, parms);
+		List<BrowseAnnounce> Browse = new ArrayList<>();		
 		try {
-			while (!resultSet.next()) {
+			while (resultSet.next()) {
+				BrowseAnnounce addedBrowse = new BrowseAnnounce();
 				addedBrowse.setAnnouncementID(resultSet.getString("announcement_id"));
 				addedBrowse.setUserID(resultSet.getString("user_id"));
 				Browse.add(addedBrowse);

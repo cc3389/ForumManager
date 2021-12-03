@@ -18,8 +18,7 @@ public class BrowsePostDao {
 		String sql = "insert into BrowsePost valus(?,?)";
 		Object[] parms = {
 			browsePost.getUserID(),
-			browsePost.getPoseID()
-			
+			browsePost.getPostID()			
 		};
 		int statement = dbu.excuteUpdate(sql, parms);
 		if(statement == 1) {
@@ -53,12 +52,13 @@ public class BrowsePostDao {
 	}
 	public List<BrowsePost> queryAllBrowse(){
 		String sql = "select * from Browse_Post";
-		ResultSet resultSet = dbu.excuteQuery(sql, null);
-		List<BrowsePost> Browse = new ArrayList<>();
-		BrowsePost addedBrowse = new BrowsePost();
+		Object[] parms = {};
+		ResultSet resultSet = dbu.excuteQuery(sql, parms);
+		List<BrowsePost> Browse = new ArrayList<>();		
 		try {
 			while (resultSet.next()) {
-				addedBrowse.setPoseID(resultSet.getString("post_id"));
+				BrowsePost addedBrowse = new BrowsePost();
+				addedBrowse.setPostID(resultSet.getString("post_id"));
 				addedBrowse.setUserID(resultSet.getString("user_id"));
 				Browse.add(addedBrowse);
 			}

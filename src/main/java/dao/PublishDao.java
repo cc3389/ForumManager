@@ -41,11 +41,12 @@ public class PublishDao {
 	}
 	public List<Publish> queryAllPublish() {		
 		String sql = "select * from Publish";
-		ResultSet resultSet = dbu.excuteQuery(sql, null);
-		List<Publish> publish = new ArrayList<>();
-		Publish addedPublish = new Publish();
+		Object[] parms = {};
+		ResultSet resultSet = dbu.excuteQuery(sql, parms);
+		List<Publish> publish = new ArrayList<>();		
 		try {
 			while (resultSet.next()) {
+				Publish addedPublish = new Publish();
 				addedPublish.setPostID(resultSet.getString("identify_id"));
 				addedPublish.setUserID(resultSet.getString("name"));
 				publish.add(addedPublish);

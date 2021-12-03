@@ -50,10 +50,10 @@ public class PermissionDao {
 	public Permission queryPermissionByID(String ID){
 		String sql = "select * from Permission where identify_id = ?";
 		Object[] parms = {ID};
-		ResultSet resultSet = dbu.excuteQuery(sql, parms);
-		Permission addedPermission = new Permission();
+		ResultSet resultSet = dbu.excuteQuery(sql, parms);	
 		try {
 			if (resultSet.next()) {
+				Permission addedPermission = new Permission();
 				addedPermission.setIdentifyID(resultSet.getString("identify_id"));
 				addedPermission.setAllowReview(resultSet.getBoolean("allow_review"));
 				addedPermission.setAllowSetRegister(resultSet.getBoolean("allow_set_register"));

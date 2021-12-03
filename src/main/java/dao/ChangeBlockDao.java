@@ -30,11 +30,12 @@ public class ChangeBlockDao {
 	}
 	public List<ChangeBlock> queryAllChange() {		
 		String sql = "select * from ChangeBlock";
-		ResultSet resultSet = dbu.excuteQuery(sql, null);
-		List<ChangeBlock> Change = new ArrayList<>();
-		ChangeBlock addedChange = new ChangeBlock();
+		Object[] parms = {};
+		ResultSet resultSet = dbu.excuteQuery(sql, parms);
+		List<ChangeBlock> Change = new ArrayList<>();		
 		try {
-			while (!resultSet.next()) {
+			while (resultSet.next()) {
+				ChangeBlock addedChange = new ChangeBlock();
 				addedChange.setAdminID(resultSet.getString("admin_id"));
 				addedChange.setBlockID(resultSet.getString("block_id"));
 				Change.add(addedChange);

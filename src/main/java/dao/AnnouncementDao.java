@@ -41,11 +41,12 @@ public class AnnouncementDao {
 	}
 	public List<Announcement> queryAllAnnon() {		
 		String sql = "select * from Announcement";
-		ResultSet resultSet = dbu.excuteQuery(sql, null);
-		List<Announcement> ann = new ArrayList<>();
-		Announcement addedAnn = new Announcement();
+		Object[] parms = {};
+		ResultSet resultSet = dbu.excuteQuery(sql, parms);
+		List<Announcement> ann = new ArrayList<>();		
 		try {
 			while (resultSet.next()) {
+				Announcement addedAnn = new Announcement();
 				addedAnn.setAnnouncement_id(resultSet.getString("announcement"));
 				addedAnn.setWriter(resultSet.getString("writer"));
 				addedAnn.setTitle(resultSet.getString("title"));

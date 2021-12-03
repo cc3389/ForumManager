@@ -43,9 +43,9 @@ public class IdentifyDao {
 		String sql = "select * from Identify where identify_id = ?";
 		Object[] parms = {ID};
 		ResultSet resultSet = dbu.excuteQuery(sql, parms);
-		Identify addedIdentify = new Identify();
 		try {
 			if (resultSet.next()) {
+				Identify addedIdentify = new Identify();
 				addedIdentify.setIdentifyID(resultSet.getString("identify_id"));
 				addedIdentify.setName(resultSet.getString("name"));
 				return addedIdentify;
