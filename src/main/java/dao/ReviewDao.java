@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,14 +14,14 @@ import util.DBUtil;
 public class ReviewDao {
 	private DBUtil dbu;
 	public ReviewDao() {
-		dbu = new DBUtil("192.168.43.159");
+		dbu = new DBUtil();
 	}
 	public boolean addReview(Review review) {
 		String sql = "insert into review values(?,?,?,?)";
 		Object[] parms = {
 			review.getUserID(),
 			review.getPostID(),
-			review.getReviewTime(),
+			new Timestamp(review.getReviewTime().getTime()),
 			review.getContent()
 		};
 		int statement = dbu.excuteUpdate(sql, parms);
@@ -48,10 +49,10 @@ public class ReviewDao {
 		List<Review> review = new ArrayList<>();
 		Review addedReview = new Review();
 		try {
-			while(!resultSet.next()) {
+			while(resultSet.next()) {
 				addedReview.setUserID(resultSet.getString("user_id"));
 				addedReview.setPostID(resultSet.getString("post_id"));
-				addedReview.setReviewTime(resultSet.getDate("review_time"));
+				addedReview.setReviewTime(resultSet.getTimestamp("review_time"));
 				addedReview.setContent(resultSet.getString("review_content"));
 			}
 		}catch(SQLException e) {

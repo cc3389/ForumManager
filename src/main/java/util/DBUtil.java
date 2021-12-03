@@ -47,7 +47,7 @@ public class DBUtil {
 			try {
 				con = DriverManager.getConnection(targetURL, uname, password);
 			} catch (SQLException e) {
-				System.out.println("连接异常");				
+				System.out.println("数据库连接异常");				
 				e.printStackTrace();
 				return null;
 			}
@@ -63,30 +63,36 @@ public class DBUtil {
 	 */
 	public int excuteUpdate(String sql,Object[] params) {
 		Connection con = getConnection();
-		try {
-			preparedStatement = con.prepareStatement(sql);
-			for (int i = 0; i < params.length; ++i) {
-				preparedStatement.setObject(i + 1, params[i]);
-			}
-			int result = preparedStatement.executeUpdate();
-			return result;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return -1;
-		} finally {
+		if (con != null) {
 			try {
-				if (preparedStatement != null)
-				preparedStatement.close();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
-			try {
-				if (con != null) 
-					con.close();
+				preparedStatement = con.prepareStatement(sql);
+				for (int i = 0; i < params.length; ++i) {
+					preparedStatement.setObject(i + 1, params[i]);
+				}
+				int result = preparedStatement.executeUpdate();
+				return result;
 			} catch (SQLException e) {
 				e.printStackTrace();
+				return -1;
+			} finally {
+				try {
+					if (preparedStatement != null)
+					preparedStatement.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				try {
+					if (con != null) 
+						con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
+		} else {
+			System.out.println("无法获取数据库连接");
+			return -1;
 		}
+
 	}
 	/**
 	 * 
@@ -99,11 +105,16 @@ public class DBUtil {
 	public ResultSet excuteQuery(String sql,Object[] params) {
 		Connection con = getConnection();
 		try {
-			con.prepareStatement(sql);
-			for (int i = 0; i < params.length; ++i) {
-				preparedStatement.setObject(i + 1, params[i]);
-			}
-			return preparedStatement.executeQuery();
+			if (con != null) {
+				con.prepareStatement(sql);
+				for (int i = 0; i < params.length; ++i) {
+					preparedStatement.setObject(i + 1, params[i]);
+				}
+				return preparedStatement.executeQuery();				
+			} else {
+				System.out.println("无法获取数据库连接");
+				return null;
+			}			
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

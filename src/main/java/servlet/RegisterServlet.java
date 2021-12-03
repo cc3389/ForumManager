@@ -26,7 +26,6 @@ public class RegisterServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -45,18 +44,21 @@ public class RegisterServlet extends HttpServlet {
 		user.setRegisterDate(currentDate);
 		System.out.println("注册已发起，用户信息如下：");
 		System.out.println(user);
+		if (name == null || password == null || email == null || sex == null) {
+			//失败重新跳转到注册界面
+			request.setAttribute("Fail", "Fail");
+			request.getRequestDispatcher("Register/Register.jsp").forward(request, response);
+		}
 		RegisterService registerService = new RegisterService(user);
-		if (registerService.isSucess()) {
+		if (registerService.isSuccess()) {
 			//跳转到提示界面提示注册成功
 			response.sendRedirect("Register/Sucess.jsp");
 		} else {
 			//失败重新跳转到注册界面
 			request.setAttribute("Fail", "Fail");
 			request.getRequestDispatcher("Register/Register.jsp").forward(request, response);
-		}
-		//System.out.println(user);		
+		}		
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

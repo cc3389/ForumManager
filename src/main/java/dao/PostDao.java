@@ -2,6 +2,8 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import entirety.Post;
@@ -11,7 +13,7 @@ public class PostDao {
 	private DBUtil dbu;
 
 	public PostDao() {
-		dbu = new DBUtil("192.168.43.159");
+		dbu = new DBUtil();
 	}
 	public boolean addPost(Post post) {
 		String sql = "insert into Post values(?,?,?,?,?,?,?,?,?)";
@@ -21,7 +23,7 @@ public class PostDao {
 				post.getBlockerID(),
 				post.getWriter(),
 				post.getTitle(),
-				post.getPublishTime(),
+				new Timestamp(post.getPublishTime().getTime()),
 				post.getPostContent(),
 				post.getAllowDigest(),
 				post.getAllowStick()
@@ -34,7 +36,7 @@ public class PostDao {
 		return false;		
 	}
 	public boolean delPostByID(String ID) {
-		String sql = "delete from post where id = ?";
+		String sql = "delete from post where post_id = ?";
 		Object[] parms = {ID};
 		int statement = dbu.excuteUpdate(sql, parms);
 		if (statement == 1) {
@@ -44,12 +46,12 @@ public class PostDao {
 		return false;
 	}
 	public Post queryPostByID(String ID) {
-		String sql = "select * from post where id = ?";
+		String sql = "select * from post where post_id = ?";
 		Object[] parms = {ID};
 		ResultSet resultSet = dbu.excuteQuery(sql, parms);
 		Post post = new Post();
 		try {
-			while(!resultSet.next()) {
+			while(resultSet.next()) {
 				post.setPostID(resultSet.getString("post_id"));
 				post.setBlockID(resultSet.getString("block_id"));
 				post.setBlockerID(resultSet.getString("blocker_id"));
@@ -66,21 +68,23 @@ public class PostDao {
 		return null;
 	}
 	public List<Post> queryPostByBlockID(String BlockID) {
-		String sql = "select * from post where BlockID = ?";
+		String sql = "select * from post where block_id = ?";
 		Object[] parms = {BlockID};
-		ResultSet resultSet = dbu.excuteQuery(sql, parms);
-		Post post = new Post();
+		ResultSet resultSet = dbu.excuteQuery(sql, null);
+		List<Post> post = new ArrayList<>();
+		Post addedPost = new Post();
 		try {
-			while(!resultSet.next()) {
-				post.setPostID(resultSet.getString("post_id"));
-				post.setBlockID(resultSet.getString("block_id"));
-				post.setBlockerID(resultSet.getString("blocker_id"));
-				post.setWriter(resultSet.getString("writer"));
-				post.setTitle(resultSet.getString("title"));
-				post.setPublishTime(resultSet.getDate("publishtime"));
-				post.setPostContent(resultSet.getString("post_content"));
-				post.setAllowDigest(resultSet.getString("allow_digest"));
-				post.setAllowStick(resultSet.getString("allow_stick"));
+			while(resultSet.next()) {
+				addedPost.setPostID(resultSet.getString("post_id"));
+				addedPost.setBlockID(resultSet.getString("block_id"));
+				addedPost.setBlockerID(resultSet.getString("blocker_id"));
+				addedPost.setWriter(resultSet.getString("writer"));
+				addedPost.setTitle(resultSet.getString("title"));
+				addedPost.setPublishTime(resultSet.getTimestamp("publishtime"));
+				addedPost.setPostContent(resultSet.getString("post_content"));
+				addedPost.setAllowDigest(resultSet.getString("allow_digest"));
+				addedPost.setAllowStick(resultSet.getString("allow_stick"));
+				post.add(addedPost);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();

@@ -3,6 +3,7 @@ package dao;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +13,13 @@ import util.DBUtil;
 public class AnnouncementDao {
 	private DBUtil dbu;
 	AnnouncementDao() {
-		dbu = new DBUtil("192.168.43.159");
+		dbu = new DBUtil();
 	}
 	public boolean addAnnon(Announcement ann) {
 		String sql = "insert into Announcement values(?,?,?,?,?)";		
 		Object[] parms = {ann.getAnnouncement_id(),ann.getWriter(),
-				ann.getTitle(),ann.getContent(),ann.getPublishTime()};
+				ann.getTitle(),ann.getContent(),
+				new Timestamp(ann.getPublishTime().getTime())};
 		int statement = dbu.excuteUpdate(sql, parms);
 		if (statement==1) {
 			return true;
@@ -43,12 +45,12 @@ public class AnnouncementDao {
 		List<Announcement> ann = new ArrayList<>();
 		Announcement addedAnn = new Announcement();
 		try {
-			while (!resultSet.next()) {
+			while (resultSet.next()) {
 				addedAnn.setAnnouncement_id(resultSet.getString("announcement"));
 				addedAnn.setWriter(resultSet.getString("writer"));
 				addedAnn.setTitle(resultSet.getString("title"));
 				addedAnn.setContent(resultSet.getString("announce_content"));
-				addedAnn.setPublishTime(resultSet.getDate("publish_time"));
+				addedAnn.setPublishTime(resultSet.getTimestamp("publish_time"));
 				ann.add(addedAnn);
 			}
 		} catch (SQLException e) {

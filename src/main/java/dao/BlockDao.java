@@ -12,7 +12,7 @@ public class BlockDao {
 	private DBUtil dbu;
 
 	public BlockDao() {
-		dbu = new DBUtil("192.168.43.159");
+		dbu = new DBUtil();
 	}
 	public boolean addBlock(Block block) {
 		String sql = "insert into block values(?,?,?)";
@@ -34,22 +34,22 @@ public class BlockDao {
 			System.out.print("系统异常");
 		return false;
 	}
-	public List<String> queryBlockName() {
-		String sql = "select name from block";
+	public List<Block> queryAll() {
+		String sql = "select * from block";
 		ResultSet resultSet = dbu.excuteQuery(sql, null);
 		List<Block> block = new ArrayList<>();
 		Block addedBlock = new Block();
 		try {
-			while(!resultSet.next()) {
+			while(resultSet.next()) {
 				addedBlock.setBlockID(resultSet.getString("block_id"));
 				addedBlock.setType(resultSet.getString("type"));
 				addedBlock.setSuperAdminID(resultSet.getString("superadmin_id"));
 				block.add(addedBlock);
-			}
+			}			
 		}catch(SQLException e){
 				e.printStackTrace();
+				return null;
 			}
-		return null;
-		
+		return block;
 	}
 }

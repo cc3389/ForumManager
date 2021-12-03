@@ -12,7 +12,7 @@ import util.DBUtil;
 public class UserDao {
 	private DBUtil dbu;
 	public UserDao() {
-		dbu = new DBUtil("192.168.43.159");
+		dbu = new DBUtil();
 	}
 	/**
 	 * 
@@ -57,16 +57,15 @@ public class UserDao {
 	/**
 	 * 
 	 * @param name 用户名
-	 * @return User链表
+	 * @return User
 	 */
-	public List<User> queryUserByName(String name) {
+	public User queryUserByName(String name) {
 		String sql = "select * from User where name = ?";
 		Object[] parms = {name};
 		ResultSet resultSet = dbu.excuteQuery(sql, parms);
-		List<User> users = new ArrayList<>();
 		User addedUser = new User();
 		try {
-			while (resultSet.next()) {
+			if (resultSet.next()) {
 				addedUser.setUserID(resultSet.getString("user_id"));
 				addedUser.setUserName(resultSet.getString("user_name"));
 				addedUser.setPassword(resultSet.getString("password"));
@@ -80,9 +79,34 @@ public class UserDao {
 			e.printStackTrace();
 			return null;
 		}
-		return users;
+		return addedUser;
 	}
-//	public boolean updateUserByID(String id) {
-//		String sql = "update User"
-//	}
+	/**
+	 * 通过用户名与密码查询用户，用于登录
+	 * @param username
+	 * @param password
+	 * @return User实体
+	 */
+	public User queryByNameAndPass(String username,String password) {
+		String sql = "select *from User where user_name = ? and password = ?";
+		Object[] parms = {username,password};
+		ResultSet resultSet = dbu.excuteQuery(sql, parms);
+		User addedUser = new User();
+		try{
+			if (!resultSet.next()) {
+				addedUser.setUserID(resultSet.getString("user_id"));
+				addedUser.setUserName(resultSet.getString("user_name"));
+				addedUser.setPassword(resultSet.getString("password"));
+				addedUser.setIdentifyID(resultSet.getString("identify_id"));
+				addedUser.setRegisterDate(resultSet.getTimestamp("register_date"));//获取时间类
+				addedUser.setSex(resultSet.getString("sex"));
+				addedUser.setMail(resultSet.getString("mail"));
+				addedUser.setAdminID(resultSet.getString("admin_id"));
+				return addedUser;
+			} else return null;			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}		
+	}
 }

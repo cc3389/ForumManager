@@ -8,24 +8,26 @@ import dao.UserDao;
 import entirety.User;
 
 public class RegisterService {
-	private boolean isSucess = false;
+	private boolean isSuccess = false;
 	public RegisterService(User user) {
 		UserDao ud = new UserDao();
-		List<User> users = ud.queryUserByName(user.getUserName());
-		if (users.size() == 0) {//注册成功
+		User existedUser = ud.queryUserByName(user.getUserName());
+		if (existedUser == null) {//用户名不冲突
 			user.setUserID(UUID.randomUUID().toString());//分配ID
-			Timestamp ts = new Timestamp(user.getRegisterDate().getTime());
-			//分配权限,添加权限...
-			isSucess = false;
-		} else { //注册失败
-			
+			user.setIdentifyID("3");
+			boolean isAdded = ud.addUser(user);//添加用户
+			if (!isAdded) {
+				isSuccess = true;
+			}
+		} else { //注册失败		
+			isSuccess = true;
 		}
 	}
 	/**
 	 * 
 	 * @return 注册成功与否
 	 */
-	public boolean isSucess() {
-		return isSucess;
+	public boolean isSuccess() {
+		return isSuccess;
 	}
 }

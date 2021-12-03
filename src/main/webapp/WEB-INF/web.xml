@@ -29,4 +29,34 @@
     <servlet-name>LogInServlet</servlet-name>
     <url-pattern>/LogInServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetCookieServlet</display-name>
+    <servlet-name>GetCookieServlet</servlet-name>
+    <servlet-class>servlet.GetCookieServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetCookieServlet</servlet-name>
+    <url-pattern>/GetCookieServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BlockServlet</display-name>
+    <servlet-name>BlockServlet</servlet-name>
+    <servlet-class>servlet.BlockServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BlockServlet</servlet-name>
+    <url-pattern>/BlockServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>QueryBlockServelt</display-name>
+    <servlet-name>QueryBlockServelt</servlet-name>
+    <servlet-class>servlet.QueryBlockServelt</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QueryBlockServelt</servlet-name>
+    <url-pattern>/QueryBlockServelt</url-pattern>
+  </servlet-mapping>
 </web-app>

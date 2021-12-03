@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entirety.Permission;
+import entirety.User;
 import service.LoginService;
 import util.MD5Util;
 
@@ -23,7 +25,6 @@ public class LogInServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -34,7 +35,8 @@ public class LogInServlet extends HttpServlet {
 		String password = request.getParameter("upwd");
 		System.out.println(name+"\n"+password+"\n"+"发起登录");
 		LoginService logSer = new LoginService(name,password);
-		if (logSer.isSucess()) {
+		logSer.LoginByPass();
+		if (logSer.isSuccess()) {
 			//将用户名与密码md5保存到cookie上
 			//权限与用户信息保存到session上
 			//重定向到主页
@@ -43,15 +45,21 @@ public class LogInServlet extends HttpServlet {
 			Cookie passMD5 = new Cookie("password",md5);
 			response.addCookie(passMD5);
 			response.addCookie(nameCookie);
+			String identifyName = logSer.getIdentifyName();
+			User user = logSer.getUser();
+			Permission permission = logSer.getPermission();
+			request.getSession().setAttribute("identifyName", identifyName);
+			request.getSession().setAttribute("user", user);
+			request.getSession().setAttribute("permisson", permission);
+			request.getSession().setAttribute("LoginStatus", "success");
+			response.sendRedirect("index.jsp");
 		} else {
 			//重新登
 			request.setCharacterEncoding("utf-8");
 			request.setAttribute("Fail", "Fail");
-			request.getRequestDispatcher("Login/index.jsp").forward(request, response);
-			
+			request.getRequestDispatcher("Login/index.jsp").forward(request, response);			
 		}
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
