@@ -8,8 +8,8 @@
 </head>
 <body>
 <%
-	String fail = (String)request.getAttribute("Fail");
-	if (fail!=null&&fail!="") {
+	String fail = (String)request.getAttribute("loginFail");
+	if (fail != null && fail != "") {
 		if (fail == "Fail") {
 %>
 <script>

@@ -23,19 +23,24 @@ public class LoginService {
 		this.password = password;
 		userDao = new UserDao();
 		user = userDao.queryUserByName(username);
+		System.out.println("用户发起登录请求，信息如下：\n"+user);
 	}
 	public void LoginByMD5() {		
-		if (user != null) {
+		System.out.println("LoginByMD5...");
+		if (user.getUserID() != null && user.getUserID() != "") {
 			String md5pass = MD5Util.md5(user.getPassword());
 			if (md5pass.equals(password)) {//匹配登录成功
+				System.out.println("匹配登录成功");
 				isSuccess = true;
 			}
 		}
 	}
 	public void LoginByPass() {
-		if (user != null) {
+		System.out.println("LoginByPass...");
+		if (user.getUserID() != null && user.getUserID() != "") {
 			String pass = user.getPassword();
 			if (pass.equals(password)) {//匹配登录成功
+				System.out.println("匹配登录成功");
 				isSuccess = true;
 			}
 		}

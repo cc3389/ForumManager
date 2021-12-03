@@ -45,12 +45,13 @@ public class GetCookieServlet extends HttpServlet {
 			LoginService ls = new LoginService(username, password);
 			ls.LoginByMD5();
 			if (ls.isSuccess()) {//登录成功
+				System.out.println("用户以cookie方式登录成功");
 				String identifyName = ls.getIdentifyName();
 				User user = ls.getUser();
 				Permission permission = ls.getPermission();
 				request.getSession().setAttribute("identifyName", identifyName);
 				request.getSession().setAttribute("user", user);
-				request.getSession().setAttribute("permisson", permission);
+				request.getSession().setAttribute("permission", permission);
 				request.getSession().setAttribute("loginStatus", "success");
 				isSuccess = true;
 			}

@@ -20,7 +20,7 @@ public class UserDao {
 	 * false失败
 	 */
 	public boolean addUser(User user) {
-		String sql = "insert into User values(?,?,?,?,?,?,?,?)";
+		String sql = "insert into Users values(?,?,?,?,?,?,?,?)";
 		Object[] parms  = {
 				user.getUserID(),
 				user.getUserName(),
@@ -31,7 +31,7 @@ public class UserDao {
 				user.getMail(),
 				user.getAdminID()
 		};
-		int statement = dbu.excuteUpdate(null, parms);
+		int statement = dbu.excuteUpdate(sql, parms);
 		if (statement == 1) {
 			return true;
 		} else if (statement == -1)
@@ -44,7 +44,7 @@ public class UserDao {
 	 * false失败
 	 */
 	public boolean delUserByID(String ID) {
-		String sql = "delete from User where userID = ?";
+		String sql = "delete from Users where user_id = ?";
 		Object[] parms = {ID};
 		 int statement = dbu.excuteUpdate(sql,parms);
 		 if (statement == 1) {
@@ -60,12 +60,12 @@ public class UserDao {
 	 * @return User
 	 */
 	public User queryUserByName(String name) {
-		String sql = "select * from User where name = ?";
+		String sql = "select * from Users where user_name = ?";
 		Object[] parms = {name};
 		ResultSet resultSet = dbu.excuteQuery(sql, parms);
 		User addedUser = new User();
 		try {
-			if (resultSet.next()) {
+			if (resultSet != null && resultSet.next()) {
 				addedUser.setUserID(resultSet.getString("user_id"));
 				addedUser.setUserName(resultSet.getString("user_name"));
 				addedUser.setPassword(resultSet.getString("password"));
@@ -88,7 +88,7 @@ public class UserDao {
 	 * @return User实体
 	 */
 	public User queryByNameAndPass(String username,String password) {
-		String sql = "select *from User where user_name = ? and password = ?";
+		String sql = "select *from Users where user_name = ? and password = ?";
 		Object[] parms = {username,password};
 		ResultSet resultSet = dbu.excuteQuery(sql, parms);
 		User addedUser = new User();

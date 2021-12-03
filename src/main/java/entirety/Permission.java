@@ -16,6 +16,13 @@ public class Permission {
 	public Permission() {
 		
 	}
+	@Override
+	public String toString() {
+		return "Permission [identifyID=" + identifyID + ", allowReview=" + allowReview + ", allowSetRegister="
+				+ allowSetRegister + ", allowOperateUser=" + allowOperateUser + ", allowExamine=" + allowExamine
+				+ ", allowSendPost=" + allowSendPost + ", allowSetPost=" + allowSetPost + ", allowSentAnnounce="
+				+ allowSentAnnounce + "]";
+	}
 	public String getIdentifyID() {
 		return identifyID;
 	}

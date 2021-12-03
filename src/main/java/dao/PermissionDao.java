@@ -55,7 +55,7 @@ public class PermissionDao {
 		try {
 			if (resultSet.next()) {
 				addedPermission.setIdentifyID(resultSet.getString("identify_id"));
-				addedPermission.setAllowReview(resultSet.getBoolean("allow_rebiew"));
+				addedPermission.setAllowReview(resultSet.getBoolean("allow_review"));
 				addedPermission.setAllowSetRegister(resultSet.getBoolean("allow_set_register"));
 				addedPermission.setAllowOperateUser(resultSet.getBoolean("allow_operate_user"));
 				addedPermission.setAllowExamine(resultSet.getBoolean("allow_examine"));

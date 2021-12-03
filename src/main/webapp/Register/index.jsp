@@ -8,7 +8,7 @@
 </head>
 <body>
 <%
-	String isFail = (String)request.getAttribute("Fail");	
+	String isFail = (String)request.getAttribute("registerFail");	
 	if (isFail != null) {
 		if (isFail == "Fail") {
 %>
@@ -17,7 +17,6 @@
 			</script>
 <%
 		}
-
 	}
 %>
 	<form method="post"action="/ForumManager/RegisterServlet">

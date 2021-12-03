@@ -33,13 +33,14 @@ public class LogInServlet extends HttpServlet {
 		//查询用户信息 失败则提示重新登，成功则跳转到主页		
 		String name = request.getParameter("uname");
 		String password = request.getParameter("upwd");
-		System.out.println(name+"\n"+password+"\n"+"发起登录");
+		System.out.println("用户名："+name+"\t"+"密码："+password+"\n"+"发起登录");
 		LoginService logSer = new LoginService(name,password);
 		logSer.LoginByPass();
 		if (logSer.isSuccess()) {
 			//将用户名与密码md5保存到cookie上
 			//权限与用户信息保存到session上
 			//重定向到主页
+			System.out.println("登陆成功，Servlet中为用户分配权限与session，准备重定向到主页");
 			Cookie nameCookie = new Cookie("username",name);	
 			String md5 = MD5Util.md5(password);
 			Cookie passMD5 = new Cookie("password",md5);
@@ -50,13 +51,13 @@ public class LogInServlet extends HttpServlet {
 			Permission permission = logSer.getPermission();
 			request.getSession().setAttribute("identifyName", identifyName);
 			request.getSession().setAttribute("user", user);
-			request.getSession().setAttribute("permisson", permission);
-			request.getSession().setAttribute("LoginStatus", "success");
+			request.getSession().setAttribute("permission", permission);
+			request.getSession().setAttribute("loginStatus", "success");
 			response.sendRedirect("index.jsp");
 		} else {
 			//重新登
-			request.setCharacterEncoding("utf-8");
-			request.setAttribute("Fail", "Fail");
+			System.out.println("登录失败，重新登，请求转发到登陆界面");
+			request.setAttribute("loginFail", "Fail");
 			request.getRequestDispatcher("Login/index.jsp").forward(request, response);			
 		}
 	}

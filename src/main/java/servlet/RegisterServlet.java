@@ -30,7 +30,13 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	
+	}
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8") ;
 		String name = request.getParameter("uname");
 		String password = request.getParameter("upwd");	
 		String email = request.getParameter("email");
@@ -46,25 +52,19 @@ public class RegisterServlet extends HttpServlet {
 		System.out.println(user);
 		if (name == null || password == null || email == null || sex == null) {
 			//失败重新跳转到注册界面
-			request.setAttribute("Fail", "Fail");
+			request.setAttribute("registerFail", "Fail");
 			request.getRequestDispatcher("Register/Register.jsp").forward(request, response);
 		}
 		RegisterService registerService = new RegisterService(user);
 		if (registerService.isSuccess()) {
 			//跳转到提示界面提示注册成功
+			System.out.println("注册成功，即将跳转");
 			response.sendRedirect("Register/Sucess.jsp");
 		} else {
 			//失败重新跳转到注册界面
+			System.out.println("注册失败，重新注册");
 			request.setAttribute("Fail", "Fail");
 			request.getRequestDispatcher("Register/Register.jsp").forward(request, response);
 		}		
 	}
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

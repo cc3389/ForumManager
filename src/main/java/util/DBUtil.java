@@ -28,7 +28,7 @@ public class DBUtil {
 	public DBUtil() {
 		uname = "sa";
 		password = "sa123";
-		String myURL = "192.168.43.159";//修改这里
+		String myURL = "192.168.123.123";//修改这里
 		targetURL = "jdbc:sqlserver://" + myURL +":1433;DatabaseName=TBGL";
 	}
 	public DBUtil(String url) {
@@ -106,7 +106,7 @@ public class DBUtil {
 		Connection con = getConnection();
 		try {
 			if (con != null) {
-				con.prepareStatement(sql);
+				PreparedStatement preparedStatement = con.prepareStatement(sql);
 				for (int i = 0; i < params.length; ++i) {
 					preparedStatement.setObject(i + 1, params[i]);
 				}
