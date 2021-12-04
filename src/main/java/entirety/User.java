@@ -20,6 +20,12 @@ public class User {
 		super();
 		userID = "";
 		identifyID = "";
+		userName = "";
+		password = "";
+		identifyID = "";
+		sex = "";
+		mail = "";
+		adminID = "";
 	}
 	@Override
 	public String toString() {

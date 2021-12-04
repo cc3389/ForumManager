@@ -10,10 +10,11 @@
 <%
 	List<Post> posts = null;
 	String blockID = request.getParameter("id");
-	request.setAttribute("blockID",blockID);
+	String blockName = request.getParameter("type");
+	request.setAttribute("blockID",blockID);	
 	Boolean isGetPost = (Boolean)request.getAttribute("isGetPost");
 %>
-<title><%="板块名"%></title>
+<title><%=blockName%>区</title>
 </head>
 <body>
 <%
@@ -23,7 +24,14 @@
 		} else if (!isGetPost) {
 			System.out.println("getPostFail");
 		}
-		out.print("<table>");
+%>	
+		<table>
+			<tr>
+				<td>标题</td>
+				<td>作者</td>
+				<td>发表时间</td>
+			</tr>
+<%
 		for (int i = 0; i < posts.size(); ++i) {			
 %>		
 		<tr>

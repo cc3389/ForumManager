@@ -31,9 +31,8 @@ public class PostsServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//根据block ID查询相应的帖子，进入帖子界面
 		String blockID = (String)request.getAttribute("blockID");
-		System.out.println("blockID:"+blockID);
-		PostsService postsService = new PostsService(blockID);
-		List<Post> posts = postsService.getPosts();
+		System.out.println("blockID:"+blockID);	
+		List<Post> posts = PostsService.getPosts(blockID);
 		if (posts != null) {//成功获取帖子
 			System.out.println("成功获取帖子,如下：");
 			System.out.println(posts);

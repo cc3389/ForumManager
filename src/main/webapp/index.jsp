@@ -37,7 +37,7 @@ User user= (User)request.getSession().getAttribute("user");
 		for (int i = 0; i < blocks.size(); ++i) {		
 			System.out.println("vlaue:"+blocks.get(i).getBlockID());
 %>
-<a href="Posts/index.jsp?id=<%=blocks.get(i).getBlockID()%>"><%=blocks.get(i).getType()%></a><br/>
+<a href="Posts/index.jsp?id=<%=blocks.get(i).getBlockID()%>&type=<%=blocks.get(i).getType()%>"><%=blocks.get(i).getType()%></a><br/>
 <% 
 		}
 	} else {
