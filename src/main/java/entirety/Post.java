@@ -13,6 +13,12 @@ public class Post {
 	private String writer;
 	private String title;
 	private Date publishTime;
+	@Override
+	public String toString() {
+		return "Post [postID=" + postID + ", blockID=" + blockID + ", blockerID=" + blockerID + ", writer=" + writer
+				+ ", title=" + title + ", publishTime=" + publishTime + ", postContent=" + postContent
+				+ ", allowDigest=" + allowDigest + ", allowStick=" + allowStick + "]";
+	}
 	private String postContent;
 	private String allowDigest;//加精
 	private String allowStick;//置顶

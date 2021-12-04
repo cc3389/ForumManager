@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import entirety.User;
@@ -62,10 +63,10 @@ public class UserDao {
 	public User queryUserByName(String name) {
 		String sql = "select * from Users where user_name = ?";
 		Object[] parms = {name};
+		ResultSet resultSet = dbu.excuteQuery(sql, parms);
 		User addedUser = new User();
-		ResultSet resultSet = dbu.excuteQuery(sql, parms);		
-		try {		
-			if (resultSet != null && resultSet.next()) {			
+		try {
+			if ( resultSet.next()) {
 				addedUser.setUserID(resultSet.getString("user_id"));
 				addedUser.setUserName(resultSet.getString("user_name"));
 				addedUser.setPassword(resultSet.getString("password"));
@@ -103,10 +104,19 @@ public class UserDao {
 				addedUser.setMail(resultSet.getString("mail"));
 				addedUser.setAdminID(resultSet.getString("admin_id"));
 				return addedUser;
-			} else return null;			
+			}		
 		}catch(SQLException e) {
 			e.printStackTrace();
 			return null;
-		}		
+		}	
+		return null	;
 	}
+//	public static void main(String[] args) {
+//		UserDao userDao = new UserDao();
+//		User test = new User("5", "beauty", "czl123", "3", new Date(), "女", "839@qq.com", "nono");
+////		System.out.println(userDao.addUser(test));
+////		System.out.println(userDao.delUserByID("5"));
+////		System.out.println(userDao.queryUserByName("beauty"));
+////		System.out.println(userDao.queryByNameAndPass("beauty", "czl123"));
+//	}
 }

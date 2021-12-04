@@ -7,10 +7,18 @@ import java.util.Date;
  *
  */
 public class Review {
+	private String ReviewID;
 	private String userID;
 	private String postID;
 	private Date reviewTime;
 	private String content;
+	
+	public String getReviewID() {
+		return ReviewID;
+	}
+	public void setReviewID(String reviewID) {
+		ReviewID = reviewID;
+	}
 	public Review() {
 		super();
 	}

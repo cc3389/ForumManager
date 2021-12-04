@@ -15,7 +15,7 @@ public class BrowseAnnounceDao {
 		dbu = new DBUtil();
 	}
 	public boolean addBrowseAnn(BrowseAnnounce BrowseAnn) {
-		String sql = "insert into Browse_Announcement valus(?,?)";
+		String sql = "insert into Browse_Announcement values(?,?)";
 		Object[] parms = {
 			BrowseAnn.getAnnouncementID(),
 			BrowseAnn.getUserID(),
@@ -54,7 +54,7 @@ public class BrowseAnnounceDao {
 		String sql = "select * from Browse_Announcement";
 		Object[] parms = {};
 		ResultSet resultSet = dbu.excuteQuery(sql, parms);
-		List<BrowseAnnounce> Browse = new ArrayList<>();		
+		List<BrowseAnnounce> Browse = new ArrayList<>();
 		try {
 			while (resultSet.next()) {
 				BrowseAnnounce addedBrowse = new BrowseAnnounce();
@@ -64,7 +64,15 @@ public class BrowseAnnounceDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
-		return null;
+		return Browse;
 	}
+//	public static void main(String[] args) {
+//		BrowseAnnounceDao browseAnnounceDao = new BrowseAnnounceDao();
+//		BrowseAnnounce test = new BrowseAnnounce("234", "123");
+//		System.out.println(browseAnnounceDao.addBrowseAnn(test));
+//		System.out.println(browseAnnounceDao.delBrowseAnnByUserID("123"));
+//		System.out.println(browseAnnounceDao.queryAllBrowse());
+//	}
 }

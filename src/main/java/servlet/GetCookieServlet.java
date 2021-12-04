@@ -16,27 +16,18 @@ import service.LoginService;
  * Servlet implementation class GetCookieServlet
  */
 public class GetCookieServlet extends HttpServlet {
-     
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GetCookieServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = null;
 		Cookie[] cookies = request.getCookies();
 		String password = null;
-		for(Cookie cookie : cookies) {
-			if (cookie.getName().equals("username")) {
-				username = cookie.getValue();
-			} else if (cookie.getName().equals("password")) {
-				password = cookie.getValue();
+		if (cookies!=null) {
+			for(Cookie cookie : cookies) {
+				if (cookie.getName().equals("username")) {
+					username = cookie.getValue();
+				} else if (cookie.getName().equals("password")) {
+					password = cookie.getValue();
+				}
 			}
 		}
 		boolean isSuccess = false;
@@ -52,22 +43,18 @@ public class GetCookieServlet extends HttpServlet {
 				request.getSession().setAttribute("identifyName", identifyName);
 				request.getSession().setAttribute("user", user);
 				request.getSession().setAttribute("permission", permission);
-				request.getSession().setAttribute("loginStatus", "success");
 				isSuccess = true;
 			}
 		}
-		if (isSuccess) {
-			response.sendRedirect("index.jsp");
+		if (isSuccess) {	
+			response.sendRedirect("index.jsp");			
+			return;
 		} else {
-			request.getSession().setAttribute("loginStatus", "fail");
-			response.sendRedirect("index.jsp");
+			System.out.println("用户以cookie方式登录失败");
+			response.sendRedirect("Login/index.jsp");
 		}
 	}
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
-
 }

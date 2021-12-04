@@ -43,7 +43,7 @@ public class AnnouncementDao {
 		String sql = "select * from Announcement";
 		Object[] parms = {};
 		ResultSet resultSet = dbu.excuteQuery(sql, parms);
-		List<Announcement> ann = new ArrayList<>();		
+		List<Announcement> ann = new ArrayList<>();
 		try {
 			while (resultSet.next()) {
 				Announcement addedAnn = new Announcement();
@@ -60,4 +60,13 @@ public class AnnouncementDao {
 		}
 		return null;
 	}
+//	public static void main(String[] args) {
+//		AnnouncementDao announcementDao = new AnnouncementDao();
+//		Announcement test = new Announcement("234", "wangwu", "title", "content", new Date(0));
+//		System.out.println(announcementDao.addAnnon(test));
+//		
+//		System.out.println(announcementDao.queryAllAnnon());
+////		System.out.println(announcementDao.delAnnonByID(test.getAnnouncement_id()));
+//		
+//	}
 }

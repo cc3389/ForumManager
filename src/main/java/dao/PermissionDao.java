@@ -16,44 +16,13 @@ public class PermissionDao {
 	public PermissionDao() {
 		dbu = new DBUtil();
 	}
-	public boolean addPermisson(Permission permission) {
-		String sql = "insert into permisson valus(?,?,?,?,?,?,?,?)";
-		Object[] parms = {
-				permission.getIdentifyID(),
-				permission.isAllowReview(),
-				permission.isAllowSetRegister(),
-				permission.isAllowOperateUser(),
-				permission.isAllowExamine(),
-				permission.isAllowSendPost(),
-				permission.isAllowSetPost(),
-				permission.isAllowSentAnnounce()
-		};
-		int statement = dbu.excuteUpdate(sql, parms);
-		if(statement == -1) {
-			return true;
-		}else if(statement == -1) {
-			System.out.println("系统异常");
-		}
-		return false;
-	}
-	public boolean delPermissionByID(String ID) {
-		String sql = "delete from Permission where identify_id = ?";
-		Object[] parms = {ID};
-		int statement = dbu.excuteUpdate(sql, parms);
-		if(statement == 1) {
-			return true;
-		}else if(statement == -1) {
-			System.out.println("系统异常");
-		}
-		return false;
-	}
 	public Permission queryPermissionByID(String ID){
 		String sql = "select * from Permission where identify_id = ?";
 		Object[] parms = {ID};
-		ResultSet resultSet = dbu.excuteQuery(sql, parms);	
+		ResultSet resultSet = dbu.excuteQuery(sql, parms);
+		Permission addedPermission = new Permission();
 		try {
 			if (resultSet.next()) {
-				Permission addedPermission = new Permission();
 				addedPermission.setIdentifyID(resultSet.getString("identify_id"));
 				addedPermission.setAllowReview(resultSet.getBoolean("allow_review"));
 				addedPermission.setAllowSetRegister(resultSet.getBoolean("allow_set_register"));
@@ -66,8 +35,11 @@ public class PermissionDao {
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
 		return null;
+	}
+	public static void main(String[] args) {
+		PermissionDao permissionDao = new PermissionDao();
+		System.out.println(permissionDao.queryPermissionByID("1"));
 	}
 }

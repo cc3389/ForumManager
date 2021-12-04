@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import entirety.Post;
@@ -48,10 +49,10 @@ public class PostDao {
 	public Post queryPostByID(String ID) {
 		String sql = "select * from post where post_id = ?";
 		Object[] parms = {ID};
+		ResultSet resultSet = dbu.excuteQuery(sql, parms);
 		Post post = new Post();
-		ResultSet resultSet = dbu.excuteQuery(sql, parms);		
 		try {
-			while(resultSet.next()) {				
+			if(resultSet.next()) {
 				post.setPostID(resultSet.getString("post_id"));
 				post.setBlockID(resultSet.getString("block_id"));
 				post.setBlockerID(resultSet.getString("blocker_id"));
@@ -61,18 +62,18 @@ public class PostDao {
 				post.setPostContent(resultSet.getString("post_content"));
 				post.setAllowDigest(resultSet.getString("allow_digest"));
 				post.setAllowStick(resultSet.getString("allow_stick"));
+				return post;
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
-		return post;
+		return null;
 	}
 	public List<Post> queryPostByBlockID(String BlockID) {
 		String sql = "select * from post where block_id = ?";
 		Object[] parms = {BlockID};
 		ResultSet resultSet = dbu.excuteQuery(sql, parms);
-		List<Post> post = new ArrayList<>();		
+		List<Post> post = new ArrayList<>();
 		try {
 			while(resultSet.next()) {
 				Post addedPost = new Post();
@@ -92,6 +93,12 @@ public class PostDao {
 			return null;
 		}
 		return post;
-		
+	}
+	public static void main(String[] args) {
+		PostDao postDao = new PostDao();
+		//Post test = new Post("3", "1", "4", "李四", "汉语", new Date(), "唐诗三百首", "是", "否");
+//		System.out.println(postDao.addPost(test));
+//		System.out.println(postDao.delPostByID("3"));
+		System.out.println(postDao.queryPostByBlockID("1"));
 	}
 }

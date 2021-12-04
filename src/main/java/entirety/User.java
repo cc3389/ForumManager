@@ -15,6 +15,7 @@ public class User {
 	private Date registerDate;
 	private String sex;
 	private String mail;
+	private String adminID;
 	public User() {
 		super();
 		userID = "";
@@ -85,5 +86,5 @@ public class User {
 	public void setAdminID(String adminID) {
 		this.adminID = adminID;
 	}
-	private String adminID;
+
 }

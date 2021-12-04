@@ -15,7 +15,7 @@ public class PublishDao {
 		dbu = new DBUtil();
 	}
 	public boolean addPublish(Publish publish) {
-		String sql = "insert into Identify values(?,?,?,?,?)";		
+		String sql = "insert into Publish values(?,?)";		
 		Object[] parms = {
 			publish.getPostID(),
 			publish.getUserID()
@@ -29,7 +29,7 @@ public class PublishDao {
 		return false;
 	}
 	public boolean delPublishByPostID(String ID) {
-		String sql = "delete from Identify where post_id = ?";
+		String sql = "delete from Publish where post_id = ?";
 		Object[] parms = {ID};
 		int statement = dbu.excuteUpdate(sql, parms);
 		if (statement==1) {
@@ -43,18 +43,26 @@ public class PublishDao {
 		String sql = "select * from Publish";
 		Object[] parms = {};
 		ResultSet resultSet = dbu.excuteQuery(sql, parms);
-		List<Publish> publish = new ArrayList<>();		
+		List<Publish> publish = new ArrayList<>();
 		try {
 			while (resultSet.next()) {
 				Publish addedPublish = new Publish();
-				addedPublish.setPostID(resultSet.getString("identify_id"));
-				addedPublish.setUserID(resultSet.getString("name"));
+				addedPublish.setPostID(resultSet.getString("post_id"));
+				addedPublish.setUserID(resultSet.getString("user_id"));
 				publish.add(addedPublish);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
-		return null;
+		return publish;
 	}
+//	public static void main(String[] args) {
+//		PublishDao publishDao = new PublishDao();
+//		Publish test = new Publish("3", "4");
+////		System.out.println(publishDao.addPublish(test));
+////		System.out.println(publishDao.delPublishByPostID("3"));
+//		System.out.println(publishDao.queryAllPublish());
+//	}
 }

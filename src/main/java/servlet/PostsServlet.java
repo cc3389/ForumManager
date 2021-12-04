@@ -1,10 +1,15 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import entirety.Post;
+import service.PostsService;
 
 /**
  * Servlet implementation class PostsServlet
@@ -25,10 +30,21 @@ public class PostsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//根据block ID查询相应的帖子，进入帖子界面
-		String blockID = request.getParameter("blockID");
-		
+		String blockID = (String)request.getAttribute("blockID");
+		System.out.println("blockID:"+blockID);
+		PostsService postsService = new PostsService(blockID);
+		List<Post> posts = postsService.getPosts();
+		if (posts != null) {//成功获取帖子
+			System.out.println("成功获取帖子,如下：");
+			System.out.println(posts);
+			request.setAttribute("posts", posts);
+			request.setAttribute("isGetPost",true);			
+		} else {
+			System.out.println("获取帖子失败");
+			request.setAttribute("isGetPost",false);
+		}
+		request.getRequestDispatcher("Posts/index.jsp?id="+blockID).forward(request,response);		
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

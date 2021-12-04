@@ -15,10 +15,10 @@ public class BrowsePostDao {
 		dbu = new DBUtil();
 	}
 	public boolean addBrowsePost(BrowsePost browsePost) {
-		String sql = "insert into BrowsePost valus(?,?)";
+		String sql = "insert into Browse_Post values(?,?)";
 		Object[] parms = {
 			browsePost.getUserID(),
-			browsePost.getPostID()			
+			browsePost.getPostID()
 		};
 		int statement = dbu.excuteUpdate(sql, parms);
 		if(statement == 1) {
@@ -54,7 +54,7 @@ public class BrowsePostDao {
 		String sql = "select * from Browse_Post";
 		Object[] parms = {};
 		ResultSet resultSet = dbu.excuteQuery(sql, parms);
-		List<BrowsePost> Browse = new ArrayList<>();		
+		List<BrowsePost> Browse = new ArrayList<>();
 		try {
 			while (resultSet.next()) {
 				BrowsePost addedBrowse = new BrowsePost();
@@ -64,7 +64,16 @@ public class BrowsePostDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
-		return null;
+		return Browse;
 	}
+//	public static void main(String[] args) {
+//		BrowsePostDao browsePostDao = new BrowsePostDao();
+//		BrowsePost test = new BrowsePost("123", "1");
+////		System.out.println(browsePostDao.addBrowsePost(test));
+////		System.out.println(browsePostDao.delBrowsePostByPostID("1"));
+////		System.out.println(browsePostDao.delBrowsePostByUserID("123"));
+//		System.out.println(browsePostDao.queryAllBrowse());
+//	}
 }

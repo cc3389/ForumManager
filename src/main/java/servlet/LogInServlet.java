@@ -42,8 +42,10 @@ public class LogInServlet extends HttpServlet {
 			//重定向到主页
 			System.out.println("登陆成功，Servlet中为用户分配权限与session，准备重定向到主页");
 			Cookie nameCookie = new Cookie("username",name);	
+			nameCookie.setMaxAge(60*60*24*7);
 			String md5 = MD5Util.md5(password);
 			Cookie passMD5 = new Cookie("password",md5);
+			passMD5.setMaxAge(60*60*24*7);
 			response.addCookie(passMD5);
 			response.addCookie(nameCookie);
 			String identifyName = logSer.getIdentifyName();
@@ -52,7 +54,6 @@ public class LogInServlet extends HttpServlet {
 			request.getSession().setAttribute("identifyName", identifyName);
 			request.getSession().setAttribute("user", user);
 			request.getSession().setAttribute("permission", permission);
-			request.getSession().setAttribute("loginStatus", "success");
 			response.sendRedirect("index.jsp");
 		} else {
 			//重新登

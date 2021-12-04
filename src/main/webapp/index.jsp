@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@page import="entirety.Block"%>
 <%@page import="entirety.User"%>
 <%@page import="java.util.List"%>
@@ -15,41 +16,14 @@
 </head>
 <body>
 <%//判断登录状态
-	User user = null;
-	Permission permission = null;
-	String identifyName = null;
-	String username = null;
-	session.setAttribute("testSession", 1);
-	System.out.println("Test Session:"+session.getAttribute("testSession"));
-	String loginStatus = (String)session.getAttribute("loginStatus");
-	System.out.println("当前登陆状态："+loginStatus);
-	if (loginStatus != null) {
-		if (loginStatus.equals("success")) {
-		user = (User)session.getAttribute("user");
-		System.out.println("user:"+user);
-		identifyName = (String)session.getAttribute("identifyName");
-		permission = (Permission)session.getAttribute("permission");
-		username = user.getUserName();
-		} else if (loginStatus.equals("fail")) {
-%>
-	<script>
-		alert("您还未登录，即将为您转入登录界面...");
-		window.location.href="Login/index.jsp";
-	</script>
-<%
-		}
-	}else {
-%>
-	<script>
-		window.location.href="/ForumManager/GetCookieServlet";//获取cookie
-	</script>
-<%	
+User user= (User)request.getSession().getAttribute("user");
+	if (user == null) {//没登陆
+		System.out.println("正在尝试用cookie登录");
+		request.getRequestDispatcher("GetCookieServlet").forward(request, response);
+		return;
 	}
-	
-	if (identifyName==null) {
-		identifyName = "None";
-		username = "None";
-}
+	String username = user.getUserName();
+	String identifyName = (String)session.getAttribute("identifyName");
 %>
 欢迎您,<%=identifyName%> <%=username%>!<br/>
 <a href = "/ForumManager/LogoutServlet">登出</a>
@@ -57,21 +31,18 @@
 <!-- 首先得到用户名，然后得到板块名，根据板块名可以进入相应的板块区 -->
 <%
 	out.print("论坛板块如下：<br/>");
-	System.out.println("用户权限如下\n"+permission+"\n以上");
+	//System.out.println("用户权限如下\n"+permission+"\n以上");
 	List<Block> blocks = (List<Block>)session.getAttribute("blocks");
 	if (blocks != null) {
 		for (int i = 0; i < blocks.size(); ++i) {		
 			System.out.println("vlaue:"+blocks.get(i).getBlockID());
 %>
-<a href="Posts/index.jsp?block=<%=blocks.get(i).getBlockID()%>"><%=blocks.get(i).getType()%></a><br/>
+<a href="Posts/index.jsp?id=<%=blocks.get(i).getBlockID()%>"><%=blocks.get(i).getType()%></a><br/>
 <% 
 		}
 	} else {
-%>
-	<script>
-		window.location.href="/ForumManager/QueryBlockServlet";//获取板块列表
-	</script>
-<%
+		System.out.println("正在获取板块");
+		request.getRequestDispatcher("QueryBlockServlet").forward(request, response);//获取板块列表		
 	}
 %>
 </body>

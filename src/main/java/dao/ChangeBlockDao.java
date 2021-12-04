@@ -15,7 +15,7 @@ public class ChangeBlockDao {
 		dbu = new DBUtil();
 	}
 	public boolean addChange(ChangeBlock change) {
-		String sql = "insert into ChangeBlock values(?,?,?,?,?)";		
+		String sql = "insert into ChangeBlock values(?,?)";
 		Object[] parms = {
 				change.getAdminID(),
 				change.getBlockID()
@@ -32,7 +32,7 @@ public class ChangeBlockDao {
 		String sql = "select * from ChangeBlock";
 		Object[] parms = {};
 		ResultSet resultSet = dbu.excuteQuery(sql, parms);
-		List<ChangeBlock> Change = new ArrayList<>();		
+		List<ChangeBlock> Change = new ArrayList<>();
 		try {
 			while (resultSet.next()) {
 				ChangeBlock addedChange = new ChangeBlock();
@@ -43,7 +43,14 @@ public class ChangeBlockDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
-		return null;
+		return Change;
 	}
+//	public static void main(String[] args) {
+//		ChangeBlockDao changeBlockDao = new ChangeBlockDao();
+//		ChangeBlock test = new ChangeBlock("123", "1");
+////		System.out.println(changeBlockDao.addChange(test));
+//		System.out.println(changeBlockDao.queryAllChange());
+//	}
 }
