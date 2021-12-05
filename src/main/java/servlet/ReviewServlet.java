@@ -20,7 +20,7 @@ public class ReviewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		String content = request.getParameter("content");
-		String postID = request.getParameter("postID");
+		String postID = (String)request.getParameter("postID");
 		System.out.println("content:"+content);
 		System.out.println("postID"+postID);
 		ReviewService rs = new ReviewService();

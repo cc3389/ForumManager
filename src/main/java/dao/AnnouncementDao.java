@@ -12,7 +12,7 @@ import util.DBUtil;
 
 public class AnnouncementDao {
 	private DBUtil dbu;
-	AnnouncementDao() {
+	public AnnouncementDao() {
 		dbu = new DBUtil();
 	}
 	public boolean addAnnon(Announcement ann) {
@@ -24,6 +24,17 @@ public class AnnouncementDao {
 		if (statement==1) {
 			return true;
 		} else if (statement==-1) {
+			System.out.println("系统异常");
+		}
+		return false;
+	}
+	public boolean delAll() {
+		String sql = "delete from Announcement";
+		Object[] parms = {};
+		int statement = dbu.excuteUpdate(sql, parms);
+		if (statement == 1) {
+			return true;
+		} else if (statement == -1) {
 			System.out.println("系统异常");
 		}
 		return false;
@@ -47,7 +58,7 @@ public class AnnouncementDao {
 		try {
 			while (resultSet.next()) {
 				Announcement addedAnn = new Announcement();
-				addedAnn.setAnnouncement_id(resultSet.getString("announcement"));
+				addedAnn.setAnnouncement_id(resultSet.getString("announcement_id"));
 				addedAnn.setWriter(resultSet.getString("writer"));
 				addedAnn.setTitle(resultSet.getString("title"));
 				addedAnn.setContent(resultSet.getString("announce_content"));
@@ -57,16 +68,14 @@ public class AnnouncementDao {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
-		return null;
+		return ann;
 	}
-//	public static void main(String[] args) {
-//		AnnouncementDao announcementDao = new AnnouncementDao();
-//		Announcement test = new Announcement("234", "wangwu", "title", "content", new Date(0));
-//		System.out.println(announcementDao.addAnnon(test));
-//		
-//		System.out.println(announcementDao.queryAllAnnon());
-////		System.out.println(announcementDao.delAnnonByID(test.getAnnouncement_id()));
-//		
-//	}
+	public static void main(String[] args) {
+		AnnouncementDao ad = new AnnouncementDao();
+		boolean delAll = ad.delAll();
+		
+		
+	}
 }

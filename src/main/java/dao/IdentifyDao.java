@@ -19,18 +19,18 @@ public class IdentifyDao {
 		String sql = "select * from Identify where identify_id = ?";
 		Object[] parms = {ID};
 		ResultSet resultSet = dbu.excuteQuery(sql, parms);
+		Identify addedIdentify = new Identify();
 		try {
-			if (resultSet.next()) {
-				Identify addedIdentify = new Identify();
+			if (resultSet.next()) {				
 				addedIdentify.setIdentifyID(resultSet.getString("identify_id"));
-				addedIdentify.setName(resultSet.getString("name"));
-				return addedIdentify;
+				addedIdentify.setName(resultSet.getString("name"));				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
-		return null;
+		return addedIdentify;
 	}
 	public List<Identify> queryAllIdentify() {		
 		String sql = "select * from Identify";

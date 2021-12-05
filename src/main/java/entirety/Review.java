@@ -13,6 +13,11 @@ public class Review {
 	private Date reviewTime;
 	private String content;
 	
+	@Override
+	public String toString() {
+		return "Review [ReviewID=" + ReviewID + ", userID=" + userID + ", postID=" + postID + ", reviewTime="
+				+ reviewTime + ", content=" + content + "]";
+	}
 	public String getReviewID() {
 		return ReviewID;
 	}

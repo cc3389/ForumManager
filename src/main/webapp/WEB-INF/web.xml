@@ -109,4 +109,54 @@
     <servlet-name>ReviewServlet</servlet-name>
     <url-pattern>/ReviewServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddPostServlet</display-name>
+    <servlet-name>AddPostServlet</servlet-name>
+    <servlet-class>servlet.AddPostServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddPostServlet</servlet-name>
+    <url-pattern>/AddPostServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserInfoServlet</display-name>
+    <servlet-name>UserInfoServlet</servlet-name>
+    <servlet-class>servlet.UserInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserInfoServlet</servlet-name>
+    <url-pattern>/UserInfoServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteServlet</display-name>
+    <servlet-name>DeleteServlet</servlet-name>
+    <servlet-class>servlet.DeleteServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteServlet</servlet-name>
+    <url-pattern>/DeleteServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddBlockServlet</display-name>
+    <servlet-name>AddBlockServlet</servlet-name>
+    <servlet-class>servlet.AddBlockServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddBlockServlet</servlet-name>
+    <url-pattern>/AddBlockServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AnnServlet</display-name>
+    <servlet-name>AnnServlet</servlet-name>
+    <servlet-class>servlet.AnnServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AnnServlet</servlet-name>
+    <url-pattern>/AnnServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

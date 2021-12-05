@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entirety.Post;
 import entirety.Review;
+import entirety.User;
 import service.PostsService;
 import service.ReviewService;
 
@@ -26,12 +27,18 @@ public class BrowseServlet extends HttpServlet {
 		//查找帖子与对应评论
 		String postID = request.getParameter("id");
 		ReviewService rs = new ReviewService();
+		PostsService ps = new PostsService();
 		List<Review> reviews = rs.getReview(postID);
-		Post post = PostsService.getPost(postID);
+		System.out.println("该帖子的评论："+reviews);
+		Post post = ps.getPost(postID);
+		User postWriter = ps.getPostWriter(post);
+		List<String> reviewers = rs.getReviewer(reviews);
 		if (post != null) {
 			System.out.println("帖子已找到..."+post);
 			request.setAttribute("reviews", reviews);
 			request.setAttribute("post", post);
+			request.setAttribute("writerID", postWriter.getUserID());
+			request.setAttribute("reviewers", reviewers);
 			request.getRequestDispatcher("Posts/content.jsp?id="+postID).forward(request, response);
 		} else {
 			System.out.println("未找到帖子！");

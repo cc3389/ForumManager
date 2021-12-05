@@ -34,6 +34,17 @@ public class ReviewDao {
 		}
 		return false;
 	}
+	public boolean delByPostID(String ID) {
+		String sql = "delete from Review where post_id = ?";
+		Object[] parms = {ID};
+		int statement = dbu.excuteUpdate(sql, parms);
+		if (statement==1) {
+			return true;
+		} else if (statement == -1) {
+			System.out.println("系统异常");
+		}
+		return false;	
+	}
 	public boolean delReviewByReviewID(String ID) {
 		String sql = "delete from Review where review_id = ?";
 		Object[] parms = {ID};
@@ -46,8 +57,8 @@ public class ReviewDao {
 		return false;	
 	}
 	public List<Review> queryReivewByPostID(String ID) {
-		String sql = "select * from Review";
-		Object[] parms = {};
+		String sql = "select * from Review where post_id = ?";
+		Object[] parms = {ID};
 		ResultSet resultSet = dbu.excuteQuery(sql, parms);
 		List<Review> review = new ArrayList<>();
 		try {
@@ -67,9 +78,6 @@ public class ReviewDao {
 	}
 //	public static void main(String[] args) {
 //		ReviewDao reviewDao = new ReviewDao();
-//		Review test = new Review("1", "123", "1", new Date(), "good");
-//		System.out.println(reviewDao.addReview(test));
-//		System.out.println(reviewDao.delReviewByReviewID("1"));
 //		System.out.println(reviewDao.queryReivewByPostID("1"));
 //	}
 }

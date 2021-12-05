@@ -24,5 +24,6 @@
 	密码:<input type="password"name="upwd"/><br/>
 	<input type="submit" value="登录">
 	</form>
+	<a href="/ForumManager/Register/index.jsp">注册</a>
 </body>
 </html>

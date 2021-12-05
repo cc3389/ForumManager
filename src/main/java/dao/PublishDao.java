@@ -11,7 +11,7 @@ import util.DBUtil;
 
 public class PublishDao {
 	private DBUtil dbu;
-	PublishDao() {
+	public PublishDao() {
 		dbu = new DBUtil();
 	}
 	public boolean addPublish(Publish publish) {

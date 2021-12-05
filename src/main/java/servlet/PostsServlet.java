@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entirety.Post;
+import entirety.User;
 import service.PostsService;
 
 /**
@@ -32,12 +34,20 @@ public class PostsServlet extends HttpServlet {
 		//根据block ID查询相应的帖子，进入帖子界面
 		String blockID = (String)request.getAttribute("blockID");
 		System.out.println("blockID:"+blockID);	
-		List<Post> posts = PostsService.getPosts(blockID);
+		PostsService ps = new PostsService();
+		List<Post> posts = ps.getPosts(blockID);
+		List<String> userid = new ArrayList<String>();
+		for(int i = 0 ;i <posts.size();++i) {
+			User u = ps.getPostWriter(posts.get(i));
+			userid.add(u.getUserID());
+		}
+		
 		if (posts != null) {//成功获取帖子
 			System.out.println("成功获取帖子,如下：");
 			System.out.println(posts);
 			request.setAttribute("posts", posts);
-			request.setAttribute("isGetPost",true);			
+			request.setAttribute("isGetPost",true);		
+			request.setAttribute("userids",userid);
 		} else {
 			System.out.println("获取帖子失败");
 			request.setAttribute("isGetPost",false);

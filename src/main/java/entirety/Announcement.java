@@ -21,6 +21,12 @@ public class Announcement {
 		this.content = content;
 		this.publishTime = publishTime;
 	}
+	
+	@Override
+	public String toString() {
+		return "Announcement [announcement_id=" + announcement_id + ", writer=" + writer + ", title=" + title
+				+ ", content=" + content + ", publishTime=" + publishTime + "]";
+	}
 	public String getAnnouncement_id() {
 		return announcement_id;
 	}

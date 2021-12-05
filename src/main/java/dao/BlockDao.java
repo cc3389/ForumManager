@@ -24,15 +24,33 @@ public class BlockDao {
 			System.out.print("系统异常");
 		return false;
 	}
-	public boolean delBlockByname(String name) {
-		String sql = "delete from block where name = ?";
-		Object[] parms = {name};
+	public boolean delBlockByID(String ID) {
+		String sql = "delete from block where block_id = ?";
+		Object[] parms = {ID};
 		int statement = dbu.excuteUpdate(sql, parms);
 		if (statement == 1) {
 			return true;
 		} else if (statement == -1)
 			System.out.print("系统异常");
 		return false;
+	}
+	public Block queryByID(String id) {
+		String sql = "select * from block where block_id = ?";
+		Object[] parms = {id};
+		ResultSet resultSet = dbu.excuteQuery(sql, parms);
+		Block addedBlock = new Block();
+		try {
+			if (resultSet.next()) {			
+				addedBlock.setBlockID(resultSet.getString("block_id"));
+				addedBlock.setType(resultSet.getString("type"));
+				addedBlock.setSuperAdminID(resultSet.getString("superadmin_id"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		return addedBlock;
 	}
 	public List<Block> queryAll() {
 		String sql = "select * from block";

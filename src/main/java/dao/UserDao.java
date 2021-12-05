@@ -39,6 +39,28 @@ public class UserDao {
 			System.out.print("系统异常");
 		return false;		
 	}
+	public User queryByID(String ID) {
+		String sql = "select * from Users where user_id = ?";
+		Object[] parms = {ID};
+		ResultSet resultSet = dbu.excuteQuery(sql, parms);
+		User addedUser = new User();
+		try {
+			if ( resultSet.next()) {
+				addedUser.setUserID(resultSet.getString("user_id"));
+				addedUser.setUserName(resultSet.getString("user_name"));
+				addedUser.setPassword(resultSet.getString("password"));
+				addedUser.setIdentifyID(resultSet.getString("identify_id"));
+				addedUser.setRegisterDate(resultSet.getTimestamp("register_date"));//获取时间类
+				addedUser.setSex(resultSet.getString("sex"));
+				addedUser.setMail(resultSet.getString("mail"));
+				addedUser.setAdminID(resultSet.getString("admin_id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return addedUser;
+	}
 	/**
 	 * 
 	 * @return true删除成功

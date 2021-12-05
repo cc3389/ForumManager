@@ -51,7 +51,7 @@ public class GetCookieServlet extends HttpServlet {
 			return;
 		} else {
 			System.out.println("用户以cookie方式登录失败");
-			response.sendRedirect("Login/index.jsp");
+			response.sendRedirect("/ForumManager/Login/index.jsp");
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

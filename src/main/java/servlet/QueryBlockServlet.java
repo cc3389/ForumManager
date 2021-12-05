@@ -30,9 +30,18 @@ public class QueryBlockServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BlockDao bd = new BlockDao();
+		String where = request.getParameter("from");
+		
 		List<Block> blocks = bd.queryAll();
-		request.getSession().setAttribute("blocks", blocks);
-		response.sendRedirect("index.jsp");
+		request.setAttribute("blocks", blocks);
+		System.out.println("以找到blocks:"+blocks);
+		if (where.equals("manage")) {
+			request.getRequestDispatcher("Manage/index.jsp").forward(request, response);
+			return;
+		} else if (where.equals("home")){
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+		}
+		
 	}
 
 	/**
