@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="entirety.Permission"%>
 <%@page import="entirety.User"%>
 <%@page import="java.util.List"%>
@@ -16,6 +17,7 @@ User user= (User)request.getSession().getAttribute("user");
 		request.getRequestDispatcher("/GetCookieServlet").forward(request, response);
 		return;
 	}
+	SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	String username = user.getUserName();
 	String identifyName = (String)session.getAttribute("identifyName");
 	Permission permission = (Permission)session.getAttribute("permission");
@@ -45,7 +47,7 @@ User user= (User)request.getSession().getAttribute("user");
 		<tr>
 			<td><a href="/ForumManager/Profile/index.jsp?id="+<%=writerID%>><%=post.getWriter()%></a></td>
 			<td><%=post.getPostContent() %></td>
-			<td><%=post.getPublishTime()%></td>
+			<td><%=ft.format(post.getPublishTime())%></td>
 		</tr>
 	
 <%
@@ -54,7 +56,7 @@ User user= (User)request.getSession().getAttribute("user");
 		<tr>
 			<td><a href="/ForumManager/Profile/index.jsp?id="+<%=reviews.get(i).getReviewID()%>><%=reviewers.get(i)%></a></td>
 			<td><%=reviews.get(i).getContent()%></td>
-			<td><%=reviews.get(i).getReviewTime()%></td>
+			<td><%=ft.format(reviews.get(i).getReviewTime())%></td>
 <%			if (permission.isAllowSetPost()) {
 %>
 			<td>

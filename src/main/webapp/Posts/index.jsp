@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="entirety.Permission"%>
 <%@page import="entirety.Identify"%>
 <%@page import="entirety.User"%>
@@ -32,6 +33,7 @@ User user= (User)request.getSession().getAttribute("user");
 	Permission permission = (Permission)session.getAttribute("permission");
 	String username = user.getUserName();
 	String identifyName = (String)session.getAttribute("identifyName");
+	SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 %>
 欢迎您,<%=identifyName%> <%=username%>!<br/>
 <a href = "/ForumManager/LogoutServlet">登出</a>
@@ -61,7 +63,7 @@ User user= (User)request.getSession().getAttribute("user");
 				<a href="/ForumManager/Profile/index.jsp?id=<%=userIDs.get(i)%>"><%=posts.get(i).getWriter()%></a>
 			</td>
 			<td>
-				<%=posts.get(i).getPublishTime()%>
+				<%=ft.format(posts.get(i).getPublishTime())%>
 			</td>			
 <%
 			if (permission.isAllowSetPost()) {

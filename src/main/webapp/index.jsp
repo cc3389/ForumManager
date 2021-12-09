@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="entirety.Announcement"%>
 <%@page import="java.util.Date"%>
 <%@page import="entirety.Block"%>
@@ -24,6 +25,7 @@ User user= (User)request.getSession().getAttribute("user");
 		return;
 	}
 	String username = user.getUserName();
+	SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	String identifyName = (String)session.getAttribute("identifyName");
 %>
 欢迎您,<%=identifyName%> <%=username%>!<br/>
@@ -47,7 +49,7 @@ User user= (User)request.getSession().getAttribute("user");
 		</tr>
 		<tr>
 		<td>发布时间</td>
-		<td><%=ann.get(0).getPublishTime()%></td>
+		<td><%=ft.format(ann.get(0).getPublishTime())%></td>
 		</tr>
 	</table>
 <%
